@@ -11,6 +11,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 m_move;
 
+    public Rigidbody2D shot;
+    public Transform shotSpawn;
+    public float firerate;
+
+    private float nextFire;
+
 	void Start ()
     {
 		
@@ -38,12 +44,22 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
-		
+		if(Input.GetButton("Fire1") && Time.time > nextFire)
+        {
+            Shoot();
+        }
 	}
 
     public float GetSpeed()
     {
         return m_maxSpeed;
+    }
+
+    void Shoot()
+    {
+        nextFire = Time.time + firerate;
+        Rigidbody2D shotInstance = Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        shotInstance.velocity = transform.forward * shot.GetComponent<Shooting>().speed;
     }
 
     void FlipChar()
