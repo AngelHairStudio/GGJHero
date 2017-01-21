@@ -20,7 +20,6 @@ public class Entity : MonoBehaviour, IDamageable
 
     public virtual void TakeDamage(float damage)
     {
-        damaged = true;
         health -= damage;
 
 
