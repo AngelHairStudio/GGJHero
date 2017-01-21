@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
 
         if (other.gameObject.tag == "Enemy")
         {
-            //other.gameObject.GetComponent<>().Hit(); Add SCRIPT FOR DAMAGING ENEMY HEAR
+            other.gameObject.GetComponent<Enemy>().TakeDamage(m_damage);
             Destroy(gameObject);
         }
 
