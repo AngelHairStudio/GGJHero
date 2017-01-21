@@ -29,9 +29,7 @@ public class Enemy : Entity
         {
             hasCastleAsTarget = true;
             castleTarget = GameObject.FindGameObjectWithTag("Castle").transform;
-            castleEntity = castleTarget.GetComponent<Entity>();
-
-         
+            castleEntity = castleTarget.GetComponent<Entity>();         
         }
     }
 
