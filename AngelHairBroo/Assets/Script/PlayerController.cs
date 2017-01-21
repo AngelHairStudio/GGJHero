@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     private float m_launchForce;
     private float m_attackRate;
     private float m_cooldown;
-    private int m_floorMask;
 
     private Vector3 m_movement;
     private Rigidbody m_playerRB;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        m_floorMask = LayerMask.GetMask("Floor");
         m_playerRB = GetComponent<Rigidbody>();
         m_launchForce = 30.0f;
         m_cooldown = 0.1f;
