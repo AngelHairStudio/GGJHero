@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class SpawnManager : MonoBehaviour {
     int currentWaveNumber;
     int enemiesRemainingToSpawn;
     int enemiesRemainingAlive;
+    public Text m_waveInfo;
 
     float nextSpawnTime;
 
@@ -29,16 +31,12 @@ public class SpawnManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
         NextWave();
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if ((enemiesRemainingToSpawn > 0 /*|| currentWave.infinity*/) && Time.time > nextSpawnTime)
         {
             enemiesRemainingToSpawn--;
@@ -105,7 +103,8 @@ public class SpawnManager : MonoBehaviour {
         {
             OnNewWave(currentWaveNumber);
         }
-
+        m_waveInfo.text = currentWaveNumber.ToString();
+        
     }
 
 

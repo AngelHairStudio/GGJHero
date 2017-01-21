@@ -34,7 +34,9 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
 
-
+        if(other.gameObject.tag == "Castle")
+        {
+            Destroy(gameObject);
+        }
     }
-
 }
