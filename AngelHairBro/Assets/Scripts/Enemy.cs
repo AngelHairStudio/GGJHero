@@ -27,7 +27,11 @@ public class Enemy : Entity {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        transform.position.Set(transform.position.x + 2 * Time.time,
+                               transform.position.y,
+                               transform.position.z); 
+
+
 	}
 
     public void SetCharacteristics(int damage, float enemyHealth, float moveSpeed)

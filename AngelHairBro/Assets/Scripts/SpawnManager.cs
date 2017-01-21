@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour {
     [SerializeField]
     private List<GameObject> spawnPoints;
 
+    public Enemy enemy;
     //Tower obj here
     //
 
@@ -40,22 +41,41 @@ public class SpawnManager : MonoBehaviour {
             enemiesRemainingToSpawn--;
             nextSpawnTime = Time.time + 1;
 
-            StartCoroutine("SpawnEnemy");
+            SpawnEnemy();
+            //StartCoroutine("SpawnEnemy");
+        }
+
+        if (devMode)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                //StopCoroutine("SpawnEnemy");
+                foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+                {
+                    GameObject.Destroy(enemy.gameObject);
+                }
+                NextWave();
+            }
         }
     }
 
-    public IEnumerable SpawnEnemy()
+    public void SpawnEnemy()
     {
-        float spawnDelay = 0;
+        float spawnDelay = 1;
         float spawnTimer = 0;
-
+        Transform spawnpos = spawnPoints[spIndex].transform;
         while (spawnTimer < spawnDelay)
         {
             spawnTimer += Time.deltaTime;
-            yield return null;
+            //yield return null;
         }
 
         //Crate and instansiate the enemy here
+        Enemy spawnedEnemy = Instantiate(enemy, spawnpos.position, Quaternion.identity) as Enemy;
+        spawnedEnemy.onDeath += OnEnemyDeath;
+        spawnedEnemy.SetCharacteristics(1,1,2);
+
+        Debug.Log("Enemy created");
     }
 
     void OnEnemyDeath()
@@ -74,22 +94,20 @@ public class SpawnManager : MonoBehaviour {
         SelectSpawnPoint();
         Debug.Log("Wave: " + currentWaveNumber);
 
-        if (currentWaveNumber - 1 < waveLenght)
-        {
-                                    // func that will incrace the wave size with 2.5 each new wave
-            enemiesRemainingToSpawn = (int)(currentWaveNumber * 2 + ((currentWaveNumber * currentWaveNumber) / (2 * currentWaveNumber)));
-            enemiesRemainingAlive = enemiesRemainingToSpawn;
+        // func that will incrace the wave size with 2.5 each new wave
+        enemiesRemainingToSpawn = (int)(currentWaveNumber * 2 + ((currentWaveNumber * currentWaveNumber) / (2 * currentWaveNumber)));
+        enemiesRemainingAlive = enemiesRemainingToSpawn;
 
-            if (OnNewWave != null)
-            {
-                OnNewWave(currentWaveNumber);
-            }
+        if (OnNewWave != null)
+        {
+            OnNewWave(currentWaveNumber);
         }
+
     }
 
 
     void SelectSpawnPoint()
     {
-        spIndex = Random.Range(0, spawnPoints.Count - 1);
+        spIndex = Random.Range(0, spawnPoints.Count);
     }
 }
