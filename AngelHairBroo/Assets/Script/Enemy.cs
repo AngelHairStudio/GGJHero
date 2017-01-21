@@ -12,6 +12,7 @@ public class Enemy : Entity
     Transform castleTarget;
     Entity castleEntity;
     Entity playerEntity;
+
     UnityEngine.AI.NavMeshAgent pathfinder;
 
     [SerializeField]
@@ -19,7 +20,7 @@ public class Enemy : Entity
     [SerializeField]
     private float attackSpped = 1;
     [SerializeField]
-    private float attackingRadius;
+    private float attackingRadius = 1;
 
     float attackDelay;
 
@@ -34,6 +35,7 @@ public class Enemy : Entity
         if (GameObject.FindGameObjectWithTag("Castle") != null)
         {
             hasCastleAsTarget = true;
+            hasPlayerAsTarget = false;
             castleTarget = GameObject.FindGameObjectWithTag("Castle").transform;
             castleEntity = castleTarget.GetComponent<Entity>();
         }
@@ -61,15 +63,36 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        //if((playerTarget.position - transform.position))
+        CheckAttackTarget();
+    }
+
+    private void CheckAttackTarget()
+    {
+        if (playerTarget != null && Vector3.Distance(playerTarget.position, transform.position) <= attackingRadius)
+        {
+            hasCastleAsTarget = false;
+            hasPlayerAsTarget = true;
+            StartCoroutine(Attack());
+        }
+        else
+        {
+            hasPlayerAsTarget = false;
+            hasCastleAsTarget = true;
+        }
+
+        if (castleTarget != null && Vector3.Distance(castleTarget.position, transform.position) <= attackingRadius)
+        {
+            hasCastleAsTarget = true;
+            hasPlayerAsTarget = false;
+            StartCoroutine(Attack());
+        }
     }
 
     public void SetCharacteristics(int damage, float enemyHealth, float moveSpeed)
     {
-        pathfinder.speed = moveSpeed;
-
         this.damage = damage;
         startingHealth = enemyHealth;
+        pathfinder.speed = moveSpeed;
 
     }
 
@@ -83,6 +106,20 @@ public class Enemy : Entity
             {
                 Vector3 dirToTarget = (castleTarget.position - transform.position).normalized;
                 Vector3 targetPosition = castleTarget.position - dirToTarget;
+                if (!dead)
+                {
+                    pathfinder.SetDestination(targetPosition);
+                }
+            }
+            yield return new WaitForSeconds(refreshRate);
+        }
+
+        while (hasPlayerAsTarget)
+        {
+            if (currentState == State.AttackingPlayer)
+            {
+                Vector3 dirToTarget = (playerTarget.position - transform.position).normalized;
+                Vector3 targetPosition = playerTarget.position - dirToTarget;
                 if (!dead)
                 {
                     pathfinder.SetDestination(targetPosition);
@@ -137,6 +174,7 @@ public class Enemy : Entity
     void OnTargetDeath()
     {
         hasCastleAsTarget = false;
+        hasPlayerAsTarget = false;
         currentState = State.Idle;
     }
 }
