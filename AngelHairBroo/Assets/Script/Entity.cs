@@ -7,8 +7,8 @@ public class Entity : MonoBehaviour, IDamageable
 {
     public float startingHealth;
 
-    //float timer;
-    //float lol = 2;
+    float timer;
+    float lol = 2;
     protected float health;
     protected bool dead;
 
@@ -50,14 +50,14 @@ public class Entity : MonoBehaviour, IDamageable
 
     void Update()
     {
-        //timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-        //if(timer > lol)
-        //{
-        //    TakeDamage(10);
-        //    timer = 0;
-        //}
-        if(damaged)
+        if (timer > lol)
+        {
+            TakeDamage(10);
+            timer = 0;
+        }
+        if (damaged)
         {
             damageImage.color = flashCol;
         }

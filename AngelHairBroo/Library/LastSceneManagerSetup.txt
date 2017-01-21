@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scens/player tester.unity
+- path: Assets/Scens/main.unity
   isLoaded: 1
   isActive: 1
