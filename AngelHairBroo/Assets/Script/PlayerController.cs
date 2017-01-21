@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private float m_attackRate;
     private float m_cooldown;
 
+    private string m_enemyTag = "Enemy";
+
     private Vector3 m_movement;
     private Rigidbody m_playerRB;
 
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
         {
             if(Input.GetButton("Fire1"))
             {
-                Shoot();
+                Shoot(m_enemyTag);
                 m_attackRate = 0;
             }
         }
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Shoot()
+    void Shoot(string tagname)
     {
         Rigidbody projInst = Instantiate(m_projectile, m_muzzle_Transform.position, m_muzzle_Transform.rotation) as Rigidbody;
         projInst.velocity = m_launchForce * m_muzzle_Transform.forward;
