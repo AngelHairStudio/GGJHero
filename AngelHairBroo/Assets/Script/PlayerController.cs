@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody m_projectile;
     public Transform m_muzzle_Transform;
-
     void Awake()
     {
         m_playerRB = GetComponent<Rigidbody>();
@@ -48,7 +47,10 @@ public class PlayerController : MonoBehaviour
         m_movement.Set(horiz, 0.0f, vertic);
         m_movement = m_movement.normalized * m_speed * Time.deltaTime;
         m_playerRB.MovePosition(transform.position + m_movement);
-        transform.rotation = Quaternion.LookRotation(m_movement.normalized);
+        if(horiz != 0 || vertic != 0)
+        {
+            transform.rotation = Quaternion.LookRotation(m_movement.normalized);
+        }
     }
 
     void Shoot()
