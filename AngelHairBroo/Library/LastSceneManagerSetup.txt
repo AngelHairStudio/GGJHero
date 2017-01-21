@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scens/Anton_Shit.unity
+- path: Assets/Scens/player tester.unity
   isLoaded: 1
   isActive: 1
