@@ -7,7 +7,6 @@ public class HQ : Entity
 {
 
     public Slider healthSlider;
-    private bool damaged;
 
 
 
