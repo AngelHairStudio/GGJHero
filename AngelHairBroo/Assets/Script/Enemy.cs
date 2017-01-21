@@ -20,13 +20,16 @@ public class Enemy : Entity
     [SerializeField]
     private float attackSpped = 1;
     [SerializeField]
-    private float attackingRadius = 1;
+    private float attackingRadius = 0.5f;
+    [SerializeField]
+    private float chaseRadius = 3;
+    [SerializeField]
+    private float attackDelay;
 
-    float attackDelay;
 
+    private float nextAttackTime;
 
     bool hasCastleAsTarget;
-    bool hasPlayerAsTarget;
 
     void Awake()
     {
@@ -35,7 +38,6 @@ public class Enemy : Entity
         if (GameObject.FindGameObjectWithTag("Castle") != null)
         {
             hasCastleAsTarget = true;
-            hasPlayerAsTarget = false;
             castleTarget = GameObject.FindGameObjectWithTag("Castle").transform;
             castleEntity = castleTarget.GetComponent<Entity>();
         }
@@ -68,23 +70,27 @@ public class Enemy : Entity
 
     private void CheckAttackTarget()
     {
-        if (playerTarget != null && Vector3.Distance(playerTarget.position, transform.position) <= attackingRadius)
+        if(playerTarget != null && Vector3.Distance(playerTarget.position, transform.position) <= chaseRadius)
         {
             hasCastleAsTarget = false;
-            hasPlayerAsTarget = true;
-            StartCoroutine(Attack());
+            currentState = State.AttackingPlayer;
+            StartCoroutine(UpdatePath());
         }
         else
         {
-            hasPlayerAsTarget = false;
-            hasCastleAsTarget = true;
+           hasCastleAsTarget = true;
+           currentState = State.AttackingTower;
         }
 
-        if (castleTarget != null && Vector3.Distance(castleTarget.position, transform.position) <= attackingRadius)
+        if (Time.time > nextAttackTime)
         {
-            hasCastleAsTarget = true;
-            hasPlayerAsTarget = false;
-            StartCoroutine(Attack());
+            if (playerTarget != null && Vector3.Distance(playerTarget.position, transform.position) <= attackingRadius)
+                StartCoroutine(Attack());
+
+            if (castleTarget != null && Vector3.Distance(castleTarget.position, transform.position) <= attackingRadius)
+                StartCoroutine(Attack());
+
+            nextAttackTime = Time.time + attackDelay;    
         }
     }
 
@@ -99,7 +105,22 @@ public class Enemy : Entity
     IEnumerator UpdatePath()
     {
         float refreshRate = .25f;
+        //Change the enemy so it follow the player
+        while (hasCastleAsTarget == false)
+        {
+            if (currentState == State.AttackingPlayer)
+            {
+                Vector3 dirToTarget = (playerTarget.position - transform.position).normalized;
+                Vector3 targetPosition = playerTarget.position - dirToTarget;
+                if (!dead)
+                {
+                    pathfinder.SetDestination(targetPosition);
+                }
+            }
+            yield return new WaitForSeconds(refreshRate);
+        }
 
+        //Change the enemy so it moves twoards the tower
         while (hasCastleAsTarget)
         {
             if (currentState == State.AttackingTower)
@@ -113,25 +134,11 @@ public class Enemy : Entity
             }
             yield return new WaitForSeconds(refreshRate);
         }
-
-        while (hasPlayerAsTarget)
-        {
-            if (currentState == State.AttackingPlayer)
-            {
-                Vector3 dirToTarget = (playerTarget.position - transform.position).normalized;
-                Vector3 targetPosition = playerTarget.position - dirToTarget;
-                if (!dead)
-                {
-                    pathfinder.SetDestination(targetPosition);
-                }
-            }
-            yield return new WaitForSeconds(refreshRate);
-        }
     }
 
     IEnumerator Attack()
     {
-        if (hasPlayerAsTarget)
+        if (hasCastleAsTarget == false)
             currentState = State.AttackingPlayer;
         else if (hasCastleAsTarget)
             currentState = State.AttackingTower;
@@ -160,7 +167,7 @@ public class Enemy : Entity
             {
                 haveAttacked = true;
                 //Create projectile here
-                Debug.Log("Enemy projectile created");
+                //Debug.Log("Enemy projectile created");
             }
 
             percent += Time.deltaTime * attackSpped;
@@ -174,7 +181,6 @@ public class Enemy : Entity
     void OnTargetDeath()
     {
         hasCastleAsTarget = false;
-        hasPlayerAsTarget = false;
         currentState = State.Idle;
     }
 }
