@@ -17,15 +17,25 @@ public class PlayerController : MonoBehaviour
     public Rigidbody m_projectile;
     public Transform m_muzzle_Transform;
 
+    //Animation stuff
+    private Animator animator;
+    public Transform grapTrans;
+    private Quaternion fixedRot;
+
     void Awake()
     {
         m_playerRB = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
+        fixedRot = grapTrans.rotation;
+
         m_launchForce = 30.0f;
         m_cooldown = 0.1f;
     }
 	
 	void Update ()
     {
+        grapTrans.rotation = fixedRot;
+
         m_attackRate += Time.deltaTime;
         if(m_attackRate >= m_cooldown)
         {
@@ -53,7 +63,10 @@ public class PlayerController : MonoBehaviour
         if(horiz != 0 || vertic != 0)
         {
             transform.rotation = Quaternion.LookRotation(m_movement.normalized);
+            animator.SetFloat("speed", 1);
         }
+        else
+            animator.SetFloat("speed", 0);
     }
 
     void Shoot(string tagname)

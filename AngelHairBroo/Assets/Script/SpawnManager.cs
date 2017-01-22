@@ -85,6 +85,10 @@ public class SpawnManager : MonoBehaviour {
 
         if (enemiesRemainingAlive == 0)
         {
+            foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+            {
+                GameObject.Destroy(enemy.gameObject);
+            }
             NextWave();
         }
     }
