@@ -34,9 +34,17 @@ public class Enemy : Entity
 
     bool hasCastleAsTarget;
 
+    //Animation stuff
+    private Animator animator;
+    public Transform grapTrans;
+    private Quaternion fixedRot;
+
+
     void Awake()
     {
         pathfinder = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
+        fixedRot = grapTrans.rotation;
 
         if (GameObject.FindGameObjectWithTag("Castle") != null)
         {
@@ -70,6 +78,7 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
+        grapTrans.rotation = fixedRot;
         //UpdatePath();
         CheckAttackTarget();
     }
