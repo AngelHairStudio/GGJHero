@@ -8,7 +8,7 @@ public class Entity : MonoBehaviour, IDamageable
     public float startingHealth;
 
     protected float health;
-    protected bool dead;   
+    protected bool dead;
 
     public event System.Action onDeath;
 

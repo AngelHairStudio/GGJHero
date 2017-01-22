@@ -57,7 +57,6 @@ public class Enemy : Entity
         if (hasCastleAsTarget)
         {
             currentState = State.AttackingTower;
-            //castleEntity.onDeath += OnTargetDeath;
             StartCoroutine(UpdatePath());
         }
     }
@@ -65,22 +64,13 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
+        //UpdatePath();
         CheckAttackTarget();
     }
 
     private void CheckAttackTarget()
     {
-        if(playerTarget != null && Vector3.Distance(playerTarget.position, transform.position) <= chaseRadius)
-        {
-            hasCastleAsTarget = false;
-            currentState = State.AttackingPlayer;
-            StartCoroutine(UpdatePath());
-        }
-        else
-        {
-           hasCastleAsTarget = true;
-           currentState = State.AttackingTower;
-        }
+        
 
         if (Time.time > nextAttackTime)
         {
@@ -91,6 +81,18 @@ public class Enemy : Entity
                 StartCoroutine(Attack());
 
             nextAttackTime = Time.time + attackDelay;    
+        }
+
+        if (playerTarget != null && Vector3.Distance(playerTarget.position, transform.position) <= chaseRadius && hasCastleAsTarget == true)
+        {
+            hasCastleAsTarget = false;
+            currentState = State.AttackingPlayer;
+            StartCoroutine(UpdatePath());
+        }
+        else
+        {
+            hasCastleAsTarget = true;
+            currentState = State.AttackingTower;
         }
     }
 
@@ -112,12 +114,13 @@ public class Enemy : Entity
             {
                 Vector3 dirToTarget = (playerTarget.position - transform.position).normalized;
                 Vector3 targetPosition = playerTarget.position - dirToTarget;
-                if (!dead)
+                if (!dead && pathfinder.enabled == true)
                 {
                     pathfinder.SetDestination(targetPosition);
                 }
             }
             yield return new WaitForSeconds(refreshRate);
+
         }
 
         //Change the enemy so it moves twoards the tower
@@ -127,7 +130,7 @@ public class Enemy : Entity
             {
                 Vector3 dirToTarget = (castleTarget.position - transform.position).normalized;
                 Vector3 targetPosition = castleTarget.position - dirToTarget;
-                if (!dead)
+                if (!dead && pathfinder.enabled == true)
                 {
                     pathfinder.SetDestination(targetPosition);
                 }
