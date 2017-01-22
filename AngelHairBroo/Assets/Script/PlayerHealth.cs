@@ -12,13 +12,13 @@ public class PlayerHealth : Entity {
     public Color flashCol = new Color(1f, 0f, 0f, 0.1f);
     private bool damaged;
 
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        damaged = true;
+    }
 
-
-    void Start () {
-		
-	}
-	
-	void Update ()
+    void Update ()
     {
         healthSlider.value = health;
 

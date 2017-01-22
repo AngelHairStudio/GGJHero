@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour, IDamageable
     protected float health;
     protected bool dead;
 
+
     public event System.Action onDeath;
 
 
