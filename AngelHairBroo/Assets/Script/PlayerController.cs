@@ -21,12 +21,14 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     public Transform grapTrans;
     private Quaternion fixedRot;
+    bool facingRight;
 
     void Awake()
     {
         m_playerRB = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         fixedRot = grapTrans.rotation;
+        facingRight = true;
 
         m_launchForce = 30.0f;
         m_cooldown = 0.1f;
@@ -64,6 +66,19 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(m_movement.normalized);
             animator.SetFloat("speed", 1);
+
+            
+            if (horiz > 0 && !facingRight ||horiz < 0 && facingRight)
+            {
+                facingRight = !facingRight;
+
+                Vector3 tempScal = grapTrans.localScale;
+                tempScal.x *= -1;
+
+                grapTrans.localScale = tempScal;
+            }
+
+
         }
         else
             animator.SetFloat("speed", 0);
