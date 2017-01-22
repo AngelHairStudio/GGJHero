@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 695342b9ac0b7014aa1fcb4519113b71
-timeCreated: 1485085847
+guid: 6acefb05575b5f647997f3587a6da6dc
+timeCreated: 1485086073
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: flame-sheet_0
-    21300002: flame-sheet_1
-    21300004: flame-sheet_2
-    21300006: flame-sheet_3
+    21300000: enemy_knight_walk_right_sheet_0
+    21300002: enemy_knight_walk_right_sheet_1
+    21300004: enemy_knight_walk_right_sheet_2
+    21300006: enemy_knight_walk_right_sheet_3
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -98,52 +98,52 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: flame-sheet_0
+      name: enemy_knight_walk_right_sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flame-sheet_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: flame-sheet_2
+      name: enemy_knight_walk_right_sheet_1
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flame-sheet_3
+      name: enemy_knight_walk_right_sheet_2
       rect:
         serializedVersion: 2
-        x: 48
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_knight_walk_right_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

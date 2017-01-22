@@ -1,13 +1,15 @@
 fileFormatVersion: 2
-guid: 695342b9ac0b7014aa1fcb4519113b71
-timeCreated: 1485085847
+guid: 93dbc4b088f98874ea7f7f967a60bc3f
+timeCreated: 1485086137
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: flame-sheet_0
-    21300002: flame-sheet_1
-    21300004: flame-sheet_2
-    21300006: flame-sheet_3
+    21300000: hero_necromancer_attack_left_0
+    21300002: hero_necromancer_attack_left_1
+    21300004: hero_necromancer_attack_left_2
+    21300006: hero_necromancer_attack_left_3
+    21300008: hero_necromancer_attack_left_4
+    21300010: hero_necromancer_attack_left_5
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -98,52 +100,78 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: flame-sheet_0
+      name: hero_necromancer_attack_left_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flame-sheet_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: flame-sheet_2
+      name: hero_necromancer_attack_left_1
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: flame-sheet_3
+      name: hero_necromancer_attack_left_2
       rect:
         serializedVersion: 2
-        x: 48
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: hero_necromancer_attack_left_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: hero_necromancer_attack_left_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: hero_necromancer_attack_left_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
