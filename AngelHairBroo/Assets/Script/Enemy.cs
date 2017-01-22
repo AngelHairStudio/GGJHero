@@ -8,6 +8,9 @@ public class Enemy : Entity
     public enum State { AttackingPlayer, AttackingTower, Idle };
     State currentState;
 
+    public Rigidbody m_projectile;
+    public Transform m_muzzle_Transform;
+
     Transform playerTarget;
     Transform castleTarget;
     Entity castleEntity;
@@ -26,8 +29,8 @@ public class Enemy : Entity
     [SerializeField]
     private float attackDelay;
 
-
     private float nextAttackTime;
+    private float m_launchForce;
 
     bool hasCastleAsTarget;
 
@@ -59,7 +62,10 @@ public class Enemy : Entity
             currentState = State.AttackingTower;
             StartCoroutine(UpdatePath());
         }
+        m_launchForce = 30.0f;
+        attackDelay = 0.4f;
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -169,8 +175,7 @@ public class Enemy : Entity
             if(percent >= .5f && !haveAttacked)
             {
                 haveAttacked = true;
-                //Create projectile here
-                //Debug.Log("Enemy projectile created");
+                Shoot();                
             }
 
             percent += Time.deltaTime * attackSpped;
@@ -185,5 +190,11 @@ public class Enemy : Entity
     {
         hasCastleAsTarget = false;
         currentState = State.Idle;
+    }
+
+    void Shoot()
+    {
+        Rigidbody projInst = Instantiate(m_projectile, m_muzzle_Transform.position, m_muzzle_Transform.rotation) as Rigidbody;
+        projInst.velocity = m_launchForce * m_muzzle_Transform.forward;
     }
 }
