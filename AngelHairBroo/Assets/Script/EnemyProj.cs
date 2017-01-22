@@ -33,6 +33,17 @@ public class EnemyProj : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if(other.gameObject.tag == "Castle")
+        {
+            other.gameObject.GetComponent<HQ>().TakeDamage(m_damage);
+            Destroy(gameObject);
+        }
+
+        if(other.gameObject.tag == "Enemy") 
+        {
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
+        }
     }
 
 }
