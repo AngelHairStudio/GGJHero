@@ -36,12 +36,13 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
+
         grapTrans.rotation = fixedRot;
 
         m_attackRate += Time.deltaTime;
-        if(m_attackRate >= m_cooldown)
+        if (m_attackRate >= m_cooldown)
         {
-            if(Input.GetButton("Fire1"))
+            if (Input.GetButton("Fire1"))
             {
                 Shoot(m_enemyTag);
                 m_attackRate = 0;

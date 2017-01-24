@@ -8,6 +8,7 @@ public class Enemy : Entity
     public enum State { AttackingPlayer, AttackingTower, Idle };
     State currentState;
 
+    public bool pauseGame;
     public Rigidbody m_projectile;
     public Transform m_muzzle_Transform;
 
@@ -78,9 +79,13 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        grapTrans.rotation = fixedRot;
-        //UpdatePath();
-        CheckAttackTarget();
+        if (!pauseGame)
+        {
+            grapTrans.rotation = fixedRot;
+            //UpdatePath();
+            CheckAttackTarget();
+
+        }
     }
 
     private void CheckAttackTarget()

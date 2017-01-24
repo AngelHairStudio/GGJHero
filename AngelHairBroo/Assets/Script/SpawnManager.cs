@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour {
 
-
     [SerializeField]
     private List<GameObject> spawnPoints;
 
@@ -37,14 +36,15 @@ public class SpawnManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if ((enemiesRemainingToSpawn > 0 /*|| currentWave.infinity*/) && Time.time > nextSpawnTime)
-        {
-            enemiesRemainingToSpawn--;
-            nextSpawnTime = Time.time + 1;
 
-            SpawnEnemy();
-            //StartCoroutine("SpawnEnemy");
-        }
+            if ((enemiesRemainingToSpawn > 0 /*|| currentWave.infinity*/) && Time.time > nextSpawnTime)
+            {
+                enemiesRemainingToSpawn--;
+                nextSpawnTime = Time.time + 1;
+
+                SpawnEnemy();
+                //StartCoroutine("SpawnEnemy");
+            }
 
         if (devMode)
         {
